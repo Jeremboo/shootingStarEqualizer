@@ -1,0 +1,10 @@
+{
+  "name": "your-app",
+  "version": "0.0.1",
+  "main": "public/app.js",
+  "dependencies": {
+    "three.js": "~0.72.0",
+    "underscore": "~1.8.3"
+  },
+  "overrides": {}
+}
