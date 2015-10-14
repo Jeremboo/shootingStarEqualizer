@@ -7,14 +7,16 @@ class Webgl {
 		this.scene = new THREE.Scene();
 
 	    this.camera = new THREE.PerspectiveCamera(50, 0, 1, 1000);
-	    this.camera.position.z = 100;
-	    this.camera.position.x = 50;
-	    this.camera.position.y = 50;
-	    this.camera.rotation.z = 0.2;
-	    this.camera.rotation.x = -0.5;
-	    this.camera.rotation.y = 0.5;
+	    this.camera.position.z = 500;
+	    // this.camera.position.x = 500;
+	    // this.camera.position.y = 500;
+	    // this.camera.rotation.z = 2;
+	    // this.camera.rotation.x = -5;
+	    // this.camera.rotation.y = 5;
 
-	    this.renderer = new THREE.WebGLRenderer();
+	    this.renderer = new THREE.WebGLRenderer({
+	    	antialias : true
+	    });
 	    this.renderer.setPixelRatio( window.devicePixelRatio );
 	    this.renderer.setClearColor(0x262626);
 

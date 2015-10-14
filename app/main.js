@@ -24,7 +24,7 @@ for (let i = 0 ; i < nbrOfRays ; i++) {
 
 // ##
 // SOUND
-sound.load( "mp3/glencheck_vivid.mp3" )
+sound.load( "mp3/01 Canned Heat.mp3" )
 sound.on( "start", () => {
 	for (let i = rays.length - 1; i >= 0; i--) {
 
@@ -33,7 +33,11 @@ sound.on( "start", () => {
 
 		loop.add( () => {
 			let s = sound.getData();
-		  	r._binds.onUpdate(s.freq[pos]);
+			let somme = 0;
+			for (var j = 0; j < 10; j++) {
+				somme += s.freq[pos+j];
+			};
+		  	r._binds.onUpdate(somme/10);
 		});
 	};
 })
