@@ -2,8 +2,9 @@ class Ray extends THREE.Object3D {
 	constructor(i){
 		super();
 
-		this.radiusSegment = 32;
-		this.heightSegment = 12;
+		this.radiusSegment = 10;
+		this.heightSegment = 30;
+
 
 		this.num = i;
 
@@ -19,9 +20,12 @@ class Ray extends THREE.Object3D {
 			z : _.random(-this.dist,this.dist)
 		}
 
-		this.oldPosZ = [];
+		this.oldPos = [];
+		for (var i = 0; i < this.heightSegment; i++) {
+			this.oldPos.push(new THREE.Vector3());
+		};
 
-		this.moveBy = _.random(45,80);
+		this.moveBy = _.random(50,100);
 
 		this.vel = _.random(10, 15)*0.10;
 		this.velRotation = _.random(1,50)*0.0001;
@@ -34,50 +38,38 @@ class Ray extends THREE.Object3D {
 		this.rayMesh.position.z = this.pos.z;
 
 
-		this.material = new THREE.MeshBasicMaterial( { color: this.colors[_.random(0,this.colors.length-1)] } );
+		this.material = new THREE.MeshBasicMaterial( { color: this.colors[_.random(0,this.colors.length-1)]} );
 
 		this.sphereGeometry = new THREE.SphereGeometry( this.size, this.radiusSegment, this.radiusSegment );
 		this.sphereMesh = new THREE.Mesh( this.sphereGeometry, this.material );
-		/*this.mesh.position.x = -100;
-		this.mesh.position.y = this.pos.y;
-		this.mesh.position.z = this.pos.z;*/
 
-		this.cylinderGeometry = new THREE.CylinderGeometry( this.size, this.size, 50, this.radiusSegment, this.heightSegment, true );
+		this.cylinderGeometry = new THREE.CylinderGeometry( this.size/10, this.size, 50, this.radiusSegment, this.heightSegment, true );
 		this.cylinderGeometry.verticesNeedUpdate = true;
 
 		this.cylinderMesh = new THREE.Mesh( this.cylinderGeometry, this.material );
 		this.cylinderMesh.rotation.z = 1.57;
 		this.cylinderMesh.position.x = -25;
-		
+
+
+		this._cylinderVertices = [];
+
+		for (var i = 0; i < this.cylinderGeometry.vertices.length; i++) {
+			this._cylinderVertices.push(JSON.parse(JSON.stringify(this.cylinderGeometry.vertices[i])));
+		};
+
 		this.rayMesh.add(this.cylinderMesh);
 		this.rayMesh.add(this.sphereMesh);
 
 		this._binds = {};
 		this._binds.onUpdate = this._onUpdate.bind(this);
-
-		console.log(this.cylinderGeometry)
-
 	}
 
 	_onUpdate(freq) {
 
 		// ##
-		// TRAIN
-		this.oldPosZ.push(this.rayMesh.position.x);
-		//console.log(this.oldPosZ);
-
-		if(this.oldPosZ.length > 12){
-		    this.oldPosZ.splice(0,1);
-		}
-		//console.log(this.oldPosZ);
-		for( var i = 0 ; i < this.heightSegment ; i++ ){
-				//console.log((i*10))
-			for( var j = 0 ; j < this.radiusSegment ; j++ ){
-				//console.log(this.cylinderGeometry)
-				this.cylinderGeometry.vertices[j+(i*10)].x += Math.random(1,9)/10 ;
-			}
-		}
-
+		// SAVE old poz
+		this.oldPos.splice(0,1);
+		this.oldPos.push(JSON.parse(JSON.stringify(this.rayMesh.position)));
 
 		// ##
 		// Translation
@@ -105,10 +97,36 @@ class Ray extends THREE.Object3D {
 	  	// ##
 	  	// Axe rotation
 	  	var t = Date.now()*this.velRotation;
-		this.rayMesh.position.y = Math.sin( t ) * this.actualDist;
-		this.rayMesh.position.z = Math.cos( t ) * this.actualDist;
+		// this.rayMesh.position.y = Math.sin( t ) * this.actualDist;
+		// this.rayMesh.position.z = Math.cos( t ) * this.actualDist;
+		this.rayMesh.position.y = Math.sin( t ) * this.dist;
+		this.rayMesh.position.z = Math.cos( t ) * this.dist;
 
 		this.rayMesh.position.x += Math.sin( t ) * 0.05;
+
+
+
+		// ##
+		// MOVE TRAIN
+		this.cylinderGeometry.verticesNeedUpdate = true;
+
+		let oldPosLength = this.oldPos.length;
+		let circleVertices = this.radiusSegment + 1;
+
+		for ( var i = 0 ; i < oldPosLength ; i++) {
+			for ( var j = 0 ; j < circleVertices ; j++) {
+				let p = j + ( circleVertices * i);
+
+				let dx = this.rayMesh.position.y - this.oldPos[i].y;
+				let dy = this.rayMesh.position.x - this.oldPos[i].x;
+				let dz = this.rayMesh.position.z - this.oldPos[i].z;
+				
+				this.cylinderGeometry.vertices[p].x = this._cylinderVertices[p].x + dx/2;
+				this.cylinderGeometry.vertices[p].y = this._cylinderVertices[p].y + dy/2;
+				this.cylinderGeometry.vertices[p].z = this._cylinderVertices[p].z + dz/2;
+			};
+			
+		};	
 	}
 }
 

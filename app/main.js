@@ -3,7 +3,9 @@ import loop from 'js/core/Loop';
 import sound from 'js/core/Sound';
 import Ray from 'js/components/Ray';
 
-var rays = [];
+let rays = [];
+let nbrOfRays = 25;
+
 
 // ##
 // INIT
@@ -14,7 +16,7 @@ loop.add(webgl._binds.onUpdate);
 
 // ##
 // OBJECTS
-for (var i = 0 ; i < 25 ; i++) {
+for (let i = 0 ; i < nbrOfRays ; i++) {
 	let ray = new Ray(i);
 	rays.push(ray);
 	webgl.add( ray.rayMesh );
@@ -24,7 +26,7 @@ for (var i = 0 ; i < 25 ; i++) {
 // SOUND
 sound.load( "mp3/glencheck_vivid.mp3" )
 sound.on( "start", () => {
-	for (var i = rays.length - 1; i >= 0; i--) {
+	for (let i = rays.length - 1; i >= 0; i--) {
 
 		let r = rays[i];
 		let pos = i*10;
