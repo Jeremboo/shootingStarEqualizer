@@ -41,7 +41,6 @@ let moveCamera = function() {
 	if(dist < -2){
 		webgl.camera.position.x += dist * .015;
 	} else {
-		webgl.mouseControl = true;
 		loop.remove(moveCamBinded);
 	}
 };
@@ -53,6 +52,21 @@ loop.add( moveCamBinded );
 // LOAD AND START SOUND
 sound.load( "mp3/music6.mp3" )
 sound.on( "start", () => {
+	let start = document.getElementById('start');
+	start.className = "";
+	start.addEventListener("click", startMusic);
+});
+
+function startMusic() {
+
+	let fPage = document.getElementById('first-page');
+	fPage.className = "hidden";
+	setTimeout(() => {
+		fPage.style.display = "none";
+		fPage.style.height = 0;
+	}, 300);
+
+	webgl.mouseControl = true;
 
 	// ##
 	// GUI
@@ -74,7 +88,7 @@ sound.on( "start", () => {
 			r._binds.updateFreq(somme/10);
 		});
 	};
-});
+}
 
 
 

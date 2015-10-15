@@ -80,7 +80,6 @@ class Ray extends THREE.Object3D {
 	  	// CHANGE AMPLITUDE ACCORDING TO THE SOUND
 		this.toAmpl = this.amplitude + this.freq*props.freqAmpl;
 		this.actualAmpl += ( this.toAmpl - this.actualAmpl ) * props.velRay;
-		console.log(this.actualAmpl)
 
 	  	// ##
 	  	// UPDATE POSITIONS (AXE ROTATIONS)

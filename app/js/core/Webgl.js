@@ -70,6 +70,7 @@ class Webgl {
 	}
 
 	_onMouseMove(e) {
+		console.log(this.mouseControl)
 		if(this.mouseDown && this.mouseControl){
 			document.body.style.cursor = 'pointer';
 			this.cameraRotation += e.movementX*0.007;
