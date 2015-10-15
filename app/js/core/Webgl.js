@@ -7,12 +7,6 @@ class Webgl {
 		this.scene = new THREE.Scene();
 
 	    this.camera = new THREE.PerspectiveCamera(50, 0, 1, 1000);
-	    this.camera.position.z = 500;
-	    // this.camera.position.x = 500;
-	    // this.camera.position.y = 500;
-	    // this.camera.rotation.z = 2;
-	    // this.camera.rotation.x = -5;
-	    // this.camera.rotation.y = 5;
 
 	    this.renderer = new THREE.WebGLRenderer({
 	    	antialias : true

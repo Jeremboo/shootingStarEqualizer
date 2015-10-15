@@ -5,7 +5,8 @@
   "dependencies": {
     "three.js": "~0.72.0",
     "underscore": "~1.8.3",
-    "emitter": "~1.5.2"
+    "emitter": "~1.5.2",
+    "dat-gui": "~0.5.1"
   },
   "overrides": {}
 }
