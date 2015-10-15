@@ -8,16 +8,29 @@ let rays = [];
 let nbrOfRays = 25;
 let gui = new dat.GUI();
 
+
+
+
+
 // ##
 // INIT
 // - webgl
 webgl.init();
 document.body.appendChild( webgl.dom );
 loop.add(webgl._binds.onUpdate);
+// - light
+let light = new THREE.AmbientLight( 0xffffff );
+light.position.set(20, 20, 20);
+webgl.add(light);
 // - gui
 gui.add(props, 'freqAmpl', 0.1, 1);
 gui.add(props, 'velRay', 0.001, 0.1);
 gui.add(props, 'vitRotation', 0.01, 2);
+
+let lightControlZ = gui.add(props, 'lightX', -800, 1000);
+lightControlZ.onChange((v) => {
+	light.position.z = v;
+});
 
 let cameraControlZ = gui.add(props, 'cameraZ', 0, 1000);
 cameraControlZ.onChange((v) => {
@@ -42,14 +55,14 @@ webgl.camera.position.x = 1000;
 // ##
 // CREATE RAYS
 for (let i = 0 ; i < nbrOfRays ; i++) {
-	let ray = new Ray(i);
+	let ray = new Ray(i, light);
 	rays.push( ray );
 	webgl.add( ray.rayMesh );
 };
 
 // ##
 // LOAD AND START SOUND
-sound.load( "mp3/01 Canned Heat.mp3" )
+sound.load( "mp3/Noisia - Shellshock ft Foreign Beggars.mp3" )
 sound.on( "start", () => {
 
 	// - start update
@@ -81,7 +94,7 @@ sound.on( "start", () => {
 
 function changeCameraRotation(){
 	webgl.camera.position.x = Math.cos( props.cameraRotation ) * props.cameraZ;
-	webgl.camera.position.y = 30;
+	webgl.camera.position.y = 50;
 	webgl.camera.position.z = Math.sin( props.cameraRotation ) * props.cameraZ;
 	webgl.camera.lookAt( webgl.scene.position );
 }
