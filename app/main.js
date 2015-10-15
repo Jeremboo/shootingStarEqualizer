@@ -6,50 +6,22 @@ import props from 'js/props';
 
 let rays = [];
 let nbrOfRays = 25;
-let gui = new dat.GUI();
-
-
-
-
 
 // ##
-// INIT
-// - webgl
+// INIT WEBGL
 webgl.init();
+webgl.camera.position.x = 1000;
 document.body.appendChild( webgl.dom );
 loop.add(webgl._binds.onUpdate);
-// - light
+
+// ##
+// CREATE LIGHT
 let light = new THREE.AmbientLight( 0xffffff );
 light.position.set(20, 20, 20);
 webgl.add(light);
-// - gui
-gui.add(props, 'freqAmpl', 0.1, 1);
-gui.add(props, 'velRay', 0.001, 0.1);
-gui.add(props, 'vitRotation', 0.01, 2);
-
-let lightControlZ = gui.add(props, 'lightX', -800, 1000);
-lightControlZ.onChange((v) => {
-	light.position.z = v;
-});
-
-let cameraControlZ = gui.add(props, 'cameraZ', 0, 1000);
-cameraControlZ.onChange((v) => {
-	props.cameraZ= v;
-	changeCameraRotation();
-});
-
-let cameraControlX = gui.add(props, 'cameraRotation',0.00,6.28);
-cameraControlX.onChange((v) => {
-	props.cameraRotation = v;
-	changeCameraRotation();
-});
 
 // ##
 // POSITIONNING THE CAMERA
-webgl.camera.position.z = props.cameraZ;
-webgl.camera.position.x = props.cameraZ;
-changeCameraRotation(props.cameraRotation)
-webgl.camera.position.x = 1000;
 
 
 // ##
@@ -58,12 +30,36 @@ for (let i = 0 ; i < nbrOfRays ; i++) {
 	let ray = new Ray(i, light);
 	rays.push( ray );
 	webgl.add( ray.rayMesh );
+	loop.add(ray._binds.onUpdate);
 };
+
+
+// ##
+// ZOOM CAMERA
+let moveCamera = function() {
+	let dist = (Math.cos( webgl.cameraRotation ) * webgl.cameraZ) - webgl.camera.position.x;
+	if(dist < -2){
+		webgl.camera.position.x += dist * .015;
+	} else {
+		webgl.mouseControl = true;
+		loop.remove(moveCamBinded);
+	}
+};
+let moveCamBinded = moveCamera.bind(moveCamera);
+loop.add( moveCamBinded );
+
 
 // ##
 // LOAD AND START SOUND
-sound.load( "mp3/Noisia - Shellshock ft Foreign Beggars.mp3" )
+sound.load( "mp3/music6.mp3" )
 sound.on( "start", () => {
+
+	// ##
+	// GUI
+	let gui = new dat.GUI();
+	gui.add(props, 'freqAmpl', 0.1, 1);
+	gui.add(props, 'velRay', 0.001, 0.1);
+	gui.add(props, 'vitRotation', 0.01, 2);
 
 	// - start update
 	for (let i = rays.length - 1; i >= 0; i--) {
@@ -75,29 +71,12 @@ sound.on( "start", () => {
 			for (var j = 0; j < 10; j++) {
 				somme += s.freq[pos+j];
 			};
-		  	r._binds.onUpdate(somme/10);
+			r._binds.updateFreq(somme/10);
 		});
 	};
-
-	// - move camera
-	let moveCamera = function() {
-		let dist = (Math.cos( props.cameraRotation ) * props.cameraZ) - webgl.camera.position.x;
-		if(dist < -2){
-			webgl.camera.position.x += dist * .015;
-		} else {
-			loop.remove(moveCamBinded);
-		}
-	};
-	let moveCamBinded = moveCamera.bind(moveCamera);
-	loop.add( moveCamBinded );
 });
 
-function changeCameraRotation(){
-	webgl.camera.position.x = Math.cos( props.cameraRotation ) * props.cameraZ;
-	webgl.camera.position.y = 50;
-	webgl.camera.position.z = Math.sin( props.cameraRotation ) * props.cameraZ;
-	webgl.camera.lookAt( webgl.scene.position );
-}
+
 
 // ##
 // RENDERER

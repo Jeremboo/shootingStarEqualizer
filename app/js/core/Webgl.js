@@ -1,12 +1,22 @@
+import props from 'js/props';
+
 'use strict';
 
 class Webgl {
 
 	constructor( ){
 
+		this.mouseDown = false;
+		this.mouseControl = false;
+		this.cameraRotation = 0.4;
+		this.cameraZ = 480;
+
 		this.scene = new THREE.Scene();
 
 	    this.camera = new THREE.PerspectiveCamera(50, 0, 1, 1000);
+	    this.camera.position.z = this.cameraZ;
+		this.camera.position.x = this.cameraZ;
+		this.changeCameraRotation(this.cameraRotation)
 
 	    this.renderer = new THREE.WebGLRenderer({
 	    	antialias : true
@@ -19,6 +29,20 @@ class Webgl {
 	    this._binds = {};
 		this._binds.onUpdate = this._onUpdate.bind( this );
 		this._binds.onResize = this._onResize.bind( this );
+		this._binds.onMouseMove = this._onMouseMove.bind( this );
+		this._binds.onMouseDown = this._onMouseDown.bind( this );
+		this._binds.onMouseUp = this._onMouseUp.bind( this );
+		this._binds.onWheel = this._onWheel.bind( this );
+
+
+	    // ##
+		// MOUSE CONTROL
+		this.dom.addEventListener("mousemove", this._binds.onMouseMove);
+		this.dom.addEventListener("mousedown", this._binds.onMouseDown); 
+		this.dom.addEventListener("mouseup", this._binds.onMouseUp);
+		this.dom.addEventListener("mousewheel", this._binds.onWheel);		
+
+
 	}
 
 	init() {
@@ -43,6 +67,33 @@ class Webgl {
     	this.camera.updateProjectionMatrix();
 
     	this.renderer.setSize(width, height);
+	}
+
+	_onMouseMove(e) {
+		if(this.mouseDown && this.mouseControl){
+			document.body.style.cursor = 'pointer';
+			this.cameraRotation += e.movementX*0.007;
+			this.changeCameraRotation();
+		}
+	}
+	_onMouseDown() {
+		this.mouseDown = true;
+	}
+	_onMouseUp() {
+		this.mouseDown = false;
+		document.body.style.cursor = 'auto';
+	}
+	_onWheel(e) {
+		this.cameraZ += e.wheelDelta/5;
+		this.changeCameraRotation();
+	}
+
+	
+	changeCameraRotation(){
+		this.camera.position.x = Math.cos( this.cameraRotation ) * this.cameraZ;
+		this.camera.position.y = 50;
+		this.camera.position.z = Math.sin( this.cameraRotation ) * this.cameraZ;
+		this.camera.lookAt( this.scene.position );
 	}
 }
 

@@ -2,8 +2,6 @@ var props =  {
 	freqAmpl : 0.5,
 	velRay : 0.05,
 	vitRotation : 0.2,
-	cameraRotation : 0.4, //1.57
-	cameraZ : 480,
 	velTranslateX : 0.7,
 	colors : [
 		0xF7EF81,

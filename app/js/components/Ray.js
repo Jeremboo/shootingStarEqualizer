@@ -25,6 +25,7 @@ class Ray extends THREE.Object3D {
 		this.cylinderHeight = _.random(10, 150);
 		this.amplitude = _.random(1,20);
 		this.vitRotation = _.random(100,200)*0.001;
+		this.freq = _.random(0,10);
 		// - THREE objects
 		// -- material
 		this.phongMaterial = this.createShaderMaterial(light);
@@ -65,9 +66,11 @@ class Ray extends THREE.Object3D {
 		// SAVE BINDING
 		this._binds = {};
 		this._binds.onUpdate = this._onUpdate.bind(this);
+		this._binds.updateFreq = this._updateFreq.bind(this);
+
 	}
 
-	_onUpdate(freq) {
+	_onUpdate() {
 		// ##
 		// SAVE OLD POSITION
 		this.oldPos.splice(0,1);
@@ -75,8 +78,9 @@ class Ray extends THREE.Object3D {
 
 	  	// ##
 	  	// CHANGE AMPLITUDE ACCORDING TO THE SOUND
-		this.toAmpl = this.amplitude + freq*props.freqAmpl;
+		this.toAmpl = this.amplitude + this.freq*props.freqAmpl;
 		this.actualAmpl += ( this.toAmpl - this.actualAmpl ) * props.velRay;
+		console.log(this.actualAmpl)
 
 	  	// ##
 	  	// UPDATE POSITIONS (AXE ROTATIONS)
@@ -107,21 +111,21 @@ class Ray extends THREE.Object3D {
 		};	
 	}
 
+	_updateFreq(freq){
+		this.freq = freq;
+	}
+
 	createShaderMaterial(light) {
 
 		let u = THREE.UniformsUtils.clone(phongDiffuse.uniforms);
-
-
 		let vs = phongDiffuse.vertexShader;
 		let fs = phongDiffuse.fragmentShader;
 
 		let material = new THREE.ShaderMaterial({ uniforms: u, vertexShader: vs, fragmentShader: fs });
-
 		material.uniforms.uDirLightPos.value = light.position;
 		material.uniforms.uDirLightColor.value = light.color;
 
 		return material;
-
 	}
 
 
