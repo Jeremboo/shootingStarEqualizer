@@ -25,7 +25,7 @@ section.hidden {
 
 h1 {
 	font-size: 4em;
-	font-family: 'Yarin-Regular' sans-serif;
+	font-family: 'Sansita-Regular' sans-serif;
 	margin : 0;
 	margin-top : 40px;
 }
@@ -42,7 +42,7 @@ button {
 	outline: none;
 	padding: 15px 20px;
 	font-size: 1.5em;
-	font-family: 'Yarin-Regular' sans-serif;
+	font-family: 'Sansita-Regular' sans-serif;
 	transition : 0.3s;
 }
 
@@ -56,17 +56,17 @@ div.dg.ac {
 
 
 @font-face {
-	font-family:'Yarin-Bold';
-	src: url('../fonts/Yarin-Bold.eot');
-	src: url('../fonts/Yarin-Bold.otf') format('truetype'),
-	     url('../fonts/Yarin-Bold.woff') format('woff'),
-	     url('../fonts/Yarin-Bold.eot?#iefix') format('embedded-opentype');
+	font-family:'Sansita-Bold';
+	src: url('../fonts/Sansita-Bold.eot');
+	src: url('../fonts/Sansita-Bold.otf') format('truetype'),
+	     url('../fonts/Sansita-Bold.woff') format('woff'),
+	     url('../fonts/Sansita-Bold.eot?#iefix') format('embedded-opentype');
 }
 
 @font-face {
-	font-family:'Yarin-Regular';
-	src: url('../fonts/Yarin-Regular.eot');
-	src: url('../fonts/Yarin-Regular.otf') format('truetype'),
-	     url('../fonts/Yarin-Regular.woff') format('woff'),
-	     url('../fonts/Yarin-Regular.eot?#iefix') format('embedded-opentype');
+	font-family:'Sansita-Regular';
+	src: url('../fonts/Sansita-Regular.eot');
+	src: url('../fonts/Sansita-Regular.otf') format('truetype'),
+	     url('../fonts/Sansita-Regular.woff') format('woff'),
+	     url('../fonts/Sansita-Regular.eot?#iefix') format('embedded-opentype');
 }
