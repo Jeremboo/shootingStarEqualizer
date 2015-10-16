@@ -50,6 +50,10 @@ button:hover {
 	margin-bottom: 3px;
 }
 
+div.dg.ac {
+	z-index: 2;
+}
+
 
 @font-face {
 	font-family:'Yarin-Bold';

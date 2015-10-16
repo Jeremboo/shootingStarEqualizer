@@ -17,5 +17,8 @@
     "css-brunch": ">= 1.0 < 1.9",
     "javascript-brunch": ">= 1.0 < 1.9",
     "uglify-js-brunch": ">= 1.0 < 1.9"
+  },
+  "devDependencies": {
+    "brunch": "^1.8.5"
   }
 }

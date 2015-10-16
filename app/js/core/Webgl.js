@@ -5,6 +5,8 @@ import props from 'js/props';
 class Webgl {
 
 	constructor( ){
+		this.width = window.innerWidth;
+		this.height = window.innerHeight;
 
 		this.mouseDown = false;
 		this.mouseControl = false;
@@ -22,9 +24,13 @@ class Webgl {
 	    	antialias : true
 	    });
 	    this.renderer.setPixelRatio( window.devicePixelRatio );
-	    this.renderer.setClearColor(0x262626);
-
+	    this.renderer.setClearColor(0x05050C);
 	    this.dom = this.renderer.domElement;
+
+	    this.usePostprocessing = true;
+    	this.composer = new WAGNER.Composer(this.renderer);
+    	this.composer.setSize(this.width, this.height);
+   		this.initPostprocessing();
 
 	    this._binds = {};
 		this._binds.onUpdate = this._onUpdate.bind( this );
@@ -51,12 +57,28 @@ class Webgl {
 	    this._onResize();
 	}
 
+	initPostprocessing() {
+	    if (!this.usePostprocessing) return;
+
+	    this.vignette2Pass = new WAGNER.Vignette2Pass();
+	  }
+
 	add(mesh) {
 		this.scene.add(mesh);
 	}
 
 	_onUpdate() {
-	    this.renderer.render( this.scene, this.camera );
+	    if (this.usePostprocessing) {
+	      this.composer.reset();
+	      this.composer.renderer.clear();
+	      this.composer.render(this.scene, this.camera);
+	      this.composer.pass(this.vignette2Pass);
+	      this.composer.toScreen();
+	    } else {
+	      this.renderer.autoClear = false;
+	      this.renderer.clear();
+	      this.renderer.render(this.scene, this.camera);
+	    }
 	}
 
 	_onResize() {

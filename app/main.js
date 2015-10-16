@@ -33,6 +33,14 @@ for (let i = 0 ; i < nbrOfRays ; i++) {
 	loop.add(ray._binds.onUpdate);
 };
 
+// ##
+// GUI
+let gui = new dat.GUI();
+gui.add(webgl, 'usePostprocessing');
+gui.add(props, 'freqAmpl', 0.1, 1);
+gui.add(props, 'velRay', 0.001, 0.1);
+gui.add(props, 'vitRotation', 0.01, 2);
+
 
 // ##
 // ZOOM CAMERA
@@ -50,7 +58,16 @@ loop.add( moveCamBinded );
 
 // ##
 // LOAD AND START SOUND
-sound.load( "mp3/music6.mp3" )
+
+/*
+* Point Point - Morning BJ
+* 01 Canned Heat
+* Cosmic Quest - Water Winds (Female Remix)
+* music6
+* Noisia - Shellshock ft Foreign Beggars
+* Unchained (The Payback_Untouchable)
+*/
+sound.load( "mp3/Point Point - Morning BJ.mp3" )
 sound.on( "start", () => {
 	let start = document.getElementById('start');
 	start.className = "";
@@ -67,13 +84,6 @@ function startMusic() {
 	}, 300);
 
 	webgl.mouseControl = true;
-
-	// ##
-	// GUI
-	let gui = new dat.GUI();
-	gui.add(props, 'freqAmpl', 0.1, 1);
-	gui.add(props, 'velRay', 0.001, 0.1);
-	gui.add(props, 'vitRotation', 0.01, 2);
 
 	// - start update
 	for (let i = rays.length - 1; i >= 0; i--) {
