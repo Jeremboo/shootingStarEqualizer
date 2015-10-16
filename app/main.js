@@ -23,7 +23,6 @@ webgl.add(light);
 // ##
 // POSITIONNING THE CAMERA
 
-
 // ##
 // CREATE RAYS
 for (let i = 0 ; i < nbrOfRays ; i++) {

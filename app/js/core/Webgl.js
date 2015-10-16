@@ -24,7 +24,7 @@ class Webgl {
 	    	antialias : true
 	    });
 	    this.renderer.setPixelRatio( window.devicePixelRatio );
-	    this.renderer.setClearColor(0x05050C);
+	    this.renderer.setClearColor(0x0c171a);
 	    this.dom = this.renderer.domElement;
 
 	    this.usePostprocessing = true;
@@ -61,6 +61,7 @@ class Webgl {
 	    if (!this.usePostprocessing) return;
 
 	    this.vignette2Pass = new WAGNER.Vignette2Pass();
+	    this.fxaaPass = new WAGNER.FXAAPass();
 	  }
 
 	add(mesh) {
@@ -72,6 +73,7 @@ class Webgl {
 	      this.composer.reset();
 	      this.composer.renderer.clear();
 	      this.composer.render(this.scene, this.camera);
+	      this.composer.pass(this.fxaaPass);
 	      this.composer.pass(this.vignette2Pass);
 	      this.composer.toScreen();
 	    } else {
