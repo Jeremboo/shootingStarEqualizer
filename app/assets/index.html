@@ -6,10 +6,40 @@
 	<link rel="stylesheet" href="app.css">
 </head>
 <body>
-	<section id="first-page">
-		<h1>Shooting Star Equalizer</h1>
-		<button id="start" class="hidden">Start</button>
-	</section>
+	<header id="first-page">
+
+		<div id="switcher-title" class="switch">
+			<div class="switcher">
+				<div class="switcher-bottom">
+					<h1>Shooting Star Equalizer</h1>
+				</div>
+			</div>
+		</div>
+
+		<div id="line"></div>
+
+		<div id="switcher-button" class="switch">
+			<div class="switcher">
+				<div class="switcher-top">
+					<div id="switcher-start" class="switch">
+						<div class="switcher">
+							<div class="switcher-front">
+								<span>Loading...</span>
+							</div>
+							<div class="switcher-right">
+								<span id="btn-name">Start</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<footer>
+		<p>Make by <a href="https://twitter.com/JeremBoo">@jeremboo</a> // Music <a href="https://www.youtube.com/watch?v=WtM8uOifd2c">Point Point - Morning BJ</a></p>
+		<div id="progress-bar"></div>
+	</footer>
 	<script type="text/javascript" src="app.js"></script>
 	<script src="vendors/wagner/Wagner.js"></script>
   	<script src="vendors/wagner/Wagner.base.js"></script>

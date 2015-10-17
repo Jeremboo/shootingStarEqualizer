@@ -1,7 +1,5 @@
 import props from 'js/props';
 
-'use strict';
-
 class Webgl {
 
 	constructor( ){
@@ -52,7 +50,6 @@ class Webgl {
 	}
 
 	init() {
-		window.addEventListener( "resize", this._binds.onResize, false );
     	window.addEventListener( "orientationchange", this._binds.onResize, false );
 	    this._onResize();
 	}
@@ -94,7 +91,6 @@ class Webgl {
 	}
 
 	_onMouseMove(e) {
-		console.log(this.mouseControl)
 		if(this.mouseDown && this.mouseControl){
 			document.body.style.cursor = 'pointer';
 			this.cameraRotation += e.movementX*0.007;

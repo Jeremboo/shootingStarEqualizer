@@ -5,6 +5,7 @@ exports.config =
       joinTo:
        'app.js': /^app|^bower_components/
     stylesheets:
-      joinTo: 'app.css'
+      joinTo: 
+      	'app.css': /^app|^bower_components/
     templates:
       joinTo: 'app.js'

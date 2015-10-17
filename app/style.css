@@ -4,69 +4,209 @@ html, body {
 	padding: 0;
 	width: 100%;
 	height : 100%;
+	color: #f3f3f4;
+	font-family: 'stargazer' sans-serif;
+	letter-spacing : 2px;
 }
-
 canvas {
 	position: absolute;
 }
+p {
 
-section {
+	margin: 8px 12px;
+}
+a {
+	color: #f3f3f4;
+	cursor: pointer;
+}
+
+/* Section */
+header {
 	z-index : 1;
 	width: 100%;
 	position: absolute;
-	color: white;
+	color: #f3f3f4;
 	text-align: center;
 	transition : 0.3s;
 }
-section.hidden {
+header.hidden {
 	opacity: 0;
 }
 
-
+/* title */
 h1 {
-	font-size: 4em;
-	font-family: 'Sansita-Regular' sans-serif;
+	font-family : "pacificoregular" sans-serif;
+	font-size : 3em;
+	letter-spacing : 5.4px;
 	margin : 0;
-	margin-top : 40px;
+	margin-top: 35px
 }
 
+/* Line */
+#line {
+	width: 0;
+	height: 2px;
+	margin : 20px auto 25px auto;
+	background-color: #f3f3f4;
+	transition : 0.5s;
+}
+#line.draw {
+	width: 20px;	
+}
+
+/* button */
 button.hidden {
 	transform : rotateX(90deg);
 }
-
 button {
-	color: white;
+	margin : 0;
 	background-color: transparent;
 	border : none;
-	cursor: pointer;
+	color: #f3f3f4;
 	outline: none;
-	padding: 15px 20px;
-	font-size: 1.5em;
-	font-family: 'Sansita-Regular' sans-serif;
-	transition : 0.3s;
 }
 
-button:hover {
-	margin-bottom: 3px;
+/* Switcher */
+
+#switcher-button {
+	width: 102px;
+	height: 30px;
+}
+#switcher-start {
+	width: 100px;
+	height: 28px;
+	font-size : 1.5em;
+	letter-spacing : 2.25px;
+	cursor: pointer;
+}
+#switcher-title {
+	width: 80%;
+	height: 120px;
 }
 
+.switch {
+  	position: relative;
+	  font-family: 'stargazer' sans-serif;
+  	margin: auto;
+}
+.switcher {
+	width: 100%;
+	height: 100%;
+  	transition : all 0.5s ease;
+  	-webkit-transform-style : preserve-3d;
+  	transform-style : preserve-3d;
+
+}
+.switcher.rotateY{
+	-webkit-transform : rotateY(-90deg);	
+	transform : rotateY(-90deg);	
+}
+.switcher.rotateX{
+	-webkit-transform : rotateX(-90deg);	
+	transform : rotateX(-90deg);	
+}
+.switcher.rotate-X{
+	-webkit-transform : rotateX(90deg);	
+	transform : rotateX(90deg);	
+}
+.switcher > div {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+.switcher-front {
+	-webkit-transform : translateZ(50px);
+	transform : translateZ(50px);
+
+}
+.switcher-bottom {
+	-webkit-transform : rotateX(90deg) translateZ(50px);
+	transform : rotateX(90deg) translateZ(50px);
+}
+.switcher-top {
+	-webkit-transform : rotateX(-90deg) translateZ(50px);
+	transform : rotateX(-90deg) translateZ(50px);
+}
+.switcher-right {
+	-webkit-transform : rotateY(90deg) translateZ(50px);
+	transform : rotateY(90deg) translateZ(50px);
+	border: 1px solid #f3f3f4;
+}
+.switcher-right:after {
+	display: block;
+	position: absolute;
+	content: '';
+	width: 100%;
+    height: 0;
+    top: 50%;
+    left: 50%;
+    background: #f3f3f4;
+    opacity: 0;
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.switch:hover .switcher.rotateY .switcher-right span  {
+	position: relative;
+    color:  #172b31;
+    z-index: 1;
+}
+.switch:hover .switcher.rotateY .switcher-right:after  {
+    height: 260%;
+    opacity: 1;
+}
+
+
+/* Controls */ 
 div.dg.ac {
 	z-index: 2;
 }
 
+/* Footer */
+footer {
+	z-index: 1;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+#progress-bar {
+	width: 0;
+	background-color: #f3f3f4;
+	height: 5px;
+}
 
+
+/* Fonts */
 @font-face {
-	font-family:'Sansita-Bold';
-	src: url('../fonts/Sansita-Bold.eot');
-	src: url('../fonts/Sansita-Bold.otf') format('truetype'),
-	     url('../fonts/Sansita-Bold.woff') format('woff'),
-	     url('../fonts/Sansita-Bold.eot?#iefix') format('embedded-opentype');
+    font-family: 'pacificoregular';
+    src: url('../fonts/pacifico/pacifico-webfont.eot');
+    src: url('../fonts/pacifico/pacifico-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/pacifico/pacifico-webfont.woff2') format('woff2'),
+         url('../fonts/pacifico/pacifico-webfont.woff') format('woff'),
+         url('../fonts/pacifico/pacifico-webfont.ttf') format('truetype'),
+         url('../fonts/pacifico/pacifico-webfont.svg#pacificoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-	font-family:'Sansita-Regular';
-	src: url('../fonts/Sansita-Regular.eot');
-	src: url('../fonts/Sansita-Regular.otf') format('truetype'),
-	     url('../fonts/Sansita-Regular.woff') format('woff'),
-	     url('../fonts/Sansita-Regular.eot?#iefix') format('embedded-opentype');
+    font-family: 'stargazer';
+    src: url('../fonts/stargazer/stargazer-webfont.eot');
+    src: url('../fonts/stargazer/stargazer-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/stargazer/stargazer-webfont.woff2') format('woff2'),
+         url('../fonts/stargazer/stargazer-webfont.woff') format('woff'),
+         url('../fonts/stargazer/stargazer-webfont.ttf') format('truetype'),
+         url('../fonts/stargazer/stargazer-webfont.svg#stargazer_demobold') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
+
