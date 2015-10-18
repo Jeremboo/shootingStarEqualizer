@@ -1,7 +1,7 @@
 var props =  {
-	freqAmpl : 0.8,
-	velRay : 0.065,
-	vitRotation : 0.2,
+	Amplitude : 0.8,
+	Sensitivity : 0.065,
+	Rotation : 0.2,
 	velTranslateX : 0.7,
 	colors : [
 		0xF7EF81,

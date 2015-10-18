@@ -7,25 +7,23 @@ class Ray extends THREE.Object3D {
 	constructor(i, light){
 		super();
 
-
-
 		// ##
 		// INIT
 		// - const
 		this.radiusSegment = 10;
 		this.heightSegment = 100;
-		this.color = props.colors[_.random(0,props.colors.length-1)];
+		this.color = props.colors[Math.floor(this.randomize(0,props.colors.length-1))];
 		// - var
 		this.mId = i;
 		this.timer = 0;
 		this.actualAmpl = 0;
 		this.toAmpl = 0;
 		// - random values
-		this.size = _.random(10, 50+(this.mId*3))/10;
-		this.cylinderHeight = _.random(10, 150);
-		this.amplitude = _.random(1,20);
-		this.vitRotation = _.random(100,200)*0.001;
-		this.freq = _.random(0,10);
+		this.size = this.randomize(1, (10+this.mId)/3);
+		this.cylinderHeight = this.randomize(10, 150);
+		this.amplitude = this.randomize(1,20);
+		this.Rotation = this.randomize(0.1,0.2);
+		this.freq = this.randomize(0,10);
 		// - THREE objects
 		// -- material
 		this.phongMaterial = this.createShaderMaterial(light);
@@ -52,9 +50,9 @@ class Ray extends THREE.Object3D {
 		};
 		// -- for initial cylinder positions 
 		this._cylinderVertices = [];
-		for (var i = 0; i < this.cylinderGeometry.vertices.length; i++) {
-			this._cylinderVertices.push(this.clone(this.cylinderGeometry.vertices[i]));
-		};
+		this.cylinderGeometry.vertices.map((vertice) => {
+			this._cylinderVertices.push(this.clone(vertice));
+		})
 
 		// ##
 		// ADD
@@ -78,12 +76,12 @@ class Ray extends THREE.Object3D {
 
 	  	// ##
 	  	// CHANGE AMPLITUDE ACCORDING TO THE SOUND
-		this.toAmpl = this.amplitude + this.freq*props.freqAmpl;
-		this.actualAmpl += ( this.toAmpl - this.actualAmpl ) * props.velRay;
+		this.toAmpl = this.amplitude + this.freq*props.Amplitude;
+		this.actualAmpl += ( this.toAmpl - this.actualAmpl ) * props.Sensitivity;
 
 	  	// ##
 	  	// UPDATE POSITIONS (AXE ROTATIONS)
-	  	this.timer += this.vitRotation*props.vitRotation;
+	  	this.timer += this.Rotation*props.Rotation;
 		this.rayMesh.position.y = Math.cos( this.timer ) * this.actualAmpl;
 		this.rayMesh.position.z = Math.sin( this.timer ) * this.actualAmpl;
 		this.rayMesh.position.x += Math.sin( this.timer ) * props.velTranslateX;
@@ -130,6 +128,10 @@ class Ray extends THREE.Object3D {
 
 	clone(object){
 		return JSON.parse(JSON.stringify(object));
+	}
+
+	randomize(min, max){
+		 return Math.random() * (max - min) + min;
 	}
 }
 

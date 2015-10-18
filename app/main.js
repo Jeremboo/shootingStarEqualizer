@@ -42,10 +42,10 @@ for (let i = 0 ; i < nbrOfRays ; i++) {
 // ##
 // GUI
 let gui = new dat.GUI();
-gui.close();
 gui.add(props, 'Amplitude', 0.1, 1);
 gui.add(props, 'Sensitivity', 0.001, 0.1);
 gui.add(props, 'Rotation', 0.01, 2);
+gui.close();
 
 
 // ##
