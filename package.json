@@ -1,11 +1,11 @@
 {
-  "name": "your-app",
-  "description": "Description",
-  "author": "Your Name",
-  "version": "0.0.1",
+  "name": "shooting-star-equalizer",
+  "description": "WebGL project in Three.js realized during a workshop at Gobelins, l'école de l'image. The aim was to create an equalizer in 3D.",
+  "author": "Jérémie Boulay",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Jeremboo/shootingStarEqualizer/"
   },
   "scripts": {
     "start": "brunch watch --server"

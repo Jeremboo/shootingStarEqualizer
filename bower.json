@@ -1,6 +1,6 @@
 {
-  "name": "your-app",
-  "version": "0.0.1",
+  "name": "shooting-star-equalizer",
+  "version": "1.0.0",
   "main": "public/app.js",
   "dependencies": {
     "dat-gui": "~0.5.1",

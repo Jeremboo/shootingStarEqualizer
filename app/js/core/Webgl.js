@@ -1,7 +1,6 @@
 import props from 'js/props';
 
 class Webgl {
-
 	constructor( ){
 		this.width = window.innerWidth;
 		this.height = window.innerHeight;
@@ -44,9 +43,7 @@ class Webgl {
 		this.dom.addEventListener("mousemove", this._binds.onMouseMove);
 		this.dom.addEventListener("mousedown", this._binds.onMouseDown); 
 		this.dom.addEventListener("mouseup", this._binds.onMouseUp);
-		this.dom.addEventListener("mousewheel", this._binds.onWheel);		
-
-
+		this.dom.addEventListener("mousewheel", this._binds.onWheel);
 	}
 
 	init() {
@@ -56,7 +53,8 @@ class Webgl {
 
 	initPostprocessing() {
 		if (!this.usePostprocessing) return;
-		this.vignette2Pass = new WAGNER.Vignette2Pass();
+		console.log("salut")
+		this.vignettePass = new WAGNER.VignettePass();
 		this.fxaaPass = new WAGNER.FXAAPass();
 	}
 
@@ -70,7 +68,7 @@ class Webgl {
 			this.composer.renderer.clear();
 			this.composer.render(this.scene, this.camera);
 			this.composer.pass(this.fxaaPass);
-			this.composer.pass(this.vignette2Pass);
+			this.composer.pass(this.vignettePass);
 			this.composer.toScreen();
 		} else {
 			this.renderer.autoClear = false;
@@ -108,7 +106,6 @@ class Webgl {
 		this.changeCameraRotation();
 	}
 
-	
 	changeCameraRotation(){
 		this.camera.position.x = Math.cos( this.cameraRotation ) * this.cameraZ;
 		this.camera.position.y = 50;
