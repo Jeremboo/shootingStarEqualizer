@@ -2,14 +2,18 @@ import webgl from 'js/core/Webgl';
 import loop from 'js/core/Loop';
 import sound from 'js/core/Sound';
 import Ray from 'js/components/Ray';
-import ProgressBar from 'js/DOMComponents/ProgressBar'
+import Switcher from 'js/DOMComponents/Switcher'
+
+import progressBar from 'js/DOMComponents/ProgressBar'
 import props from 'js/props';
 
 let rays = [];
 let nbrOfRays = 25;
-let progressBar = new ProgressBar(document.getElementById('progress-bar'));
-let fPage = document.getElementById('first-page');
-let startBtn = document.getElementById('switcher-button');
+
+let header = document.getElementById('header');
+let switcherTitle = new Switcher(document.getElementById('switcher-title'));
+let switcherHeaderBtn = new Switcher(document.getElementById('switcher-button'));
+let switcherStartBtn = new Switcher(document.getElementById('switcher-start'));
 
 
 // ##
@@ -19,9 +23,11 @@ webgl.camera.position.x = 1000;
 document.body.appendChild( webgl.dom );
 loop.add(webgl._binds.onUpdate);
 
+
 // ##
 // SHOW HEADER
 showHeader();
+
 
 // ##
 // CREATE LIGHT
@@ -38,6 +44,7 @@ for (let i = 0 ; i < nbrOfRays ; i++) {
 	webgl.add( ray.rayMesh );
 	loop.add(ray._binds.onUpdate);
 };
+
 
 // ##
 // GUI
@@ -67,26 +74,28 @@ loop.add( moveCamBinded );
 sound.load( "mp3/Point Point - Morning BJ.mp3" )
 sound.on( "start", () => {
 	// -- show start button
-	rorateSwitch(document.getElementById('switcher-start'), 'rotateY');
-	startBtn.style.cursor = 'pointer';
-	startBtn.addEventListener("click", startMusic);
+	switcherHeaderBtn.element.style.cursor = 'pointer';
+	switcherHeaderBtn.element.addEventListener("click", startMusic);
+	switcherStartBtn.rotate('rotateY');
 	// - start progressbar
 	progressBar.init(sound.duration);
 	progressBar.start();
 });
 sound.on( "end", () => {
 	document.getElementById('btn-name').innerHTML = "Restart";
-	console.log(document.getElementById('btn-name'));
-	startBtn.removeEventListener("click", startMusic);
-	startBtn.addEventListener("click", restartMusic);
+	switcherHeaderBtn.element.removeEventListener("click", startMusic);
+	switcherHeaderBtn.element.addEventListener("click", restartMusic);
 	showHeader();
 });
+
 
 // ##
 // ON RESIZE
 window.addEventListener( "resize", () => {
 	webgl._binds.onResize();
 }, false );
+
+
 // ##
 // RENDERER
 loop.start();
@@ -120,13 +129,13 @@ function restartMusic(){
 }
 
 function showHeader(){
-	fPage.className = "";
-	fPage.style.display = "";
-	fPage.style.height = "auto";
+	header.className = "";
+	header.style.display = "";
+	header.style.height = "auto";
 	timelaps(2000, () => {
-		rorateSwitch(document.getElementById('switcher-title'), 'rotateX');
+		switcherTitle.rotate('rotateX');
 		timelaps(100, () => {
-			rorateSwitch(startBtn, 'rotate-X');
+			switcherHeaderBtn.rotate("rotate-X");
 			timelaps(400, () => {
 				document.getElementById('line').className = 'draw';
 			});
@@ -135,24 +144,17 @@ function showHeader(){
 }
 
 function hideHeader(){
-	removeSwitch(document.getElementById('switcher-title'), 'rotateX');
-	removeSwitch(startBtn, 'rotate-X');
+	switcherTitle.rebase('rotateX');
+	switcherHeaderBtn.rebase('rotate-X');
 	timelaps(100, () => {
 		document.getElementById('line').className = '';
 		timelaps(300,() => {	
-			fPage.style.display = "none";
-			fPage.style.height = 0;
+			header.style.display = "none";
+			header.style.height = 0;
 		});
 	});
 }
 
-
 function timelaps(timer, callback){
 	setTimeout(callback, timer);
-}
-function rorateSwitch(element, action){
-	element.getElementsByClassName('switcher')[0].classList.add(action);
-}
-function removeSwitch(element, action){
-	element.getElementsByClassName('switcher')[0].classList.remove(action);
 }

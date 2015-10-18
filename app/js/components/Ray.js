@@ -1,8 +1,6 @@
 import props from 'js/props';
 import shaderToon from 'js/shaderToon';
 
-let phongDiffuse = shaderToon["phongDiffuse"];
-
 class Ray extends THREE.Object3D {
 	constructor(i, light){
 		super();
@@ -16,13 +14,14 @@ class Ray extends THREE.Object3D {
 		// - var
 		this.mId = i;
 		this.timer = 0;
+		this.timerPosX = 0;
 		this.actualAmpl = 0;
 		this.toAmpl = 0;
 		// - random values
 		this.size = this.randomize(1, (10+this.mId)/3);
 		this.cylinderHeight = this.randomize(10, 150);
 		this.amplitude = this.randomize(1,20);
-		this.Rotation = this.randomize(0.1,0.2);
+		this.vitRotation = this.randomize(0.1,0.2);
 		this.freq = this.randomize(0,10);
 		// - THREE objects
 		// -- material
@@ -65,7 +64,6 @@ class Ray extends THREE.Object3D {
 		this._binds = {};
 		this._binds.onUpdate = this._onUpdate.bind(this);
 		this._binds.updateFreq = this._updateFreq.bind(this);
-
 	}
 
 	_onUpdate() {
@@ -74,22 +72,22 @@ class Ray extends THREE.Object3D {
 		this.oldPos.splice(0,1);
 		this.oldPos.push(this.clone(this.rayMesh.position));
 
-	  	// ##
-	  	// CHANGE AMPLITUDE ACCORDING TO THE SOUND
+		// ##
+		// CHANGE AMPLITUDE ACCORDING TO THE SOUND
 		this.toAmpl = this.amplitude + this.freq*props.Amplitude;
 		this.actualAmpl += ( this.toAmpl - this.actualAmpl ) * props.Sensitivity;
 
-	  	// ##
-	  	// UPDATE POSITIONS (AXE ROTATIONS)
-	  	this.timer += this.Rotation*props.Rotation;
+		// ##
+		// UPDATE POSITIONS (AXE ROTATIONS)
+		this.timer += this.vitRotation*props.Rotation;
+		this.timerPosX += this.vitRotation*0.1;
 		this.rayMesh.position.y = Math.cos( this.timer ) * this.actualAmpl;
 		this.rayMesh.position.z = Math.sin( this.timer ) * this.actualAmpl;
-		this.rayMesh.position.x += Math.sin( this.timer ) * props.velTranslateX;
+		this.rayMesh.position.x += Math.sin( this.timerPosX ) * 0.5;
 
 		// ##
 		// MOVE TRAIL
 		this.cylinderGeometry.verticesNeedUpdate = true;
-
 		let oldPosLength = this.oldPos.length;
 		let circleVertices = this.radiusSegment + 1;
 
@@ -113,7 +111,7 @@ class Ray extends THREE.Object3D {
 	}
 
 	createShaderMaterial(light) {
-
+		let phongDiffuse = shaderToon["phongDiffuse"];
 		let u = THREE.UniformsUtils.clone(phongDiffuse.uniforms);
 		let vs = phongDiffuse.vertexShader;
 		let fs = phongDiffuse.fragmentShader;
@@ -131,7 +129,7 @@ class Ray extends THREE.Object3D {
 	}
 
 	randomize(min, max){
-		 return Math.random() * (max - min) + min;
+		return Math.random() * (max - min) + min;
 	}
 }
 

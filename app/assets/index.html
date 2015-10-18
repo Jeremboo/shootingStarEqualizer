@@ -1,53 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Shooting Star Equalizer</title>
-	<link rel="stylesheet" href="app.css">
-</head>
-<body>
-	<header id="first-page">
+	<head>
+		<meta charset="UTF-8">
+		<title>Shooting Star Equalizer</title>
+		<link rel="stylesheet" href="app.css">
+	</head>
+	<body>
+		<header id="header">
 
-		<div id="switcher-title" class="switch">
-			<div class="switcher">
-				<div class="switcher-bottom">
-					<h1>Shooting Star Equalizer</h1>
+			<div id="switcher-title" class="switch">
+				<div class="switcher">
+					<div class="switcher-bottom">
+						<h1>Shooting Star Equalizer</h1>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div id="line"></div>
+			<div id="line"></div>
 
-		<div id="switcher-button" class="switch">
-			<div class="switcher">
-				<div class="switcher-top">
-					<div id="switcher-start" class="switch">
-						<div class="switcher">
-							<div class="switcher-front">
-								<span>Loading...</span>
-							</div>
-							<div class="switcher-right">
-								<span id="btn-name">Start</span>
+			<div id="switcher-button" class="switch">
+				<div class="switcher">
+					<div class="switcher-top">
+						<div id="switcher-start" class="switch">
+							<div class="switcher">
+								<div class="switcher-front">
+									<span>Loading...</span>
+								</div>
+								<div class="switcher-right">
+									<span id="btn-name">Start</span>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</header>
+		</header>
 
-	<footer>
-		<p>Make by <a href="https://twitter.com/JeremBoo">@jeremboo</a> // Music <a href="https://www.youtube.com/watch?v=WtM8uOifd2c">Point Point - Morning BJ</a></p>
-		<div id="progress-bar"></div>
-	</footer>
-	<script type="text/javascript" src="app.js"></script>
-	<script src="vendors/wagner/Wagner.js"></script>
-  	<script src="vendors/wagner/Wagner.base.js"></script>
-  	<script>
-    // configure Wagner
-    WAGNER.vertexShadersPath = 'vendors/wagner/vertex-shaders/';
-    WAGNER.fragmentShadersPath = 'vendors/wagner/fragment-shaders/';
-  </script>
-	<script type="text/javascript">require('main')</script>
-</body>
+		<footer>
+			<p>Make by <a href="https://twitter.com/JeremBoo">@jeremboo</a> // Music <a href="https://www.youtube.com/watch?v=WtM8uOifd2c">Point Point - Morning BJ</a></p>
+			<div id="progress-bar"></div>
+		</footer>
+		
+		<script type="text/javascript" src="app.js"></script>
+		<script src="vendors/wagner/Wagner.js"></script>
+		<script src="vendors/wagner/Wagner.base.js"></script>
+		<script>
+			// configure Wagner
+			WAGNER.vertexShadersPath = 'vendors/wagner/vertex-shaders/';
+			WAGNER.fragmentShadersPath = 'vendors/wagner/fragment-shaders/';
+		</script>
+		<script type="text/javascript">require('main')</script>
+	</body>
 </html>

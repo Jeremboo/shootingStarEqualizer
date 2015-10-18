@@ -1,8 +1,7 @@
-var props =  {
+var props = {
 	Amplitude : 0.8,
 	Sensitivity : 0.065,
 	Rotation : 0.2,
-	velTranslateX : 0.7,
 	colors : [
 		0xF7EF81,
 		0xA7D3A6,
@@ -15,7 +14,7 @@ var props =  {
 		0xF24236,
 		0x4CB944
 	],
-	lightX :-1
+	lightX : -1
 }
 
 module.exports = props;

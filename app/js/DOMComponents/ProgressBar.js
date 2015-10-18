@@ -1,8 +1,8 @@
 class ProgressBar {
 
-	constructor(element, duration){
-		this.element = element;
-		this.duration = duration || -1;
+	constructor(){
+		this.element = document.getElementById('progress-bar');
+		this.duration = -1;
 	}
 
 	init(duration){
@@ -32,4 +32,4 @@ class ProgressBar {
 	}
 }
 
-module.exports = ProgressBar
+module.exports = new ProgressBar();
