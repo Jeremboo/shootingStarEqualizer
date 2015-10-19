@@ -11,7 +11,7 @@ module.exports = {
 
 			uKd: {
 				type: "f",
-				value: 0.7 // 1.1
+				value: 1.2
 			},
 			uBorder: {
 				type: "f",

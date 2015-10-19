@@ -42,7 +42,7 @@ If you want to vizualize my project, please :
 
 <img alt="20151015_step6" src="https://github.com/Jeremboo/shootingStarEqualizer/blob/master/gifs/20151015_step6.gif?raw=true" width="300">
 
-<img alt="20151016_step7" src="https://github.com/Jeremboo/shootingStarEqualizer/blob/master/gifs/20151016_step7?raw=true" width="300">
+<img alt="20151016_step7" src="https://github.com/Jeremboo/shootingStarEqualizer/blob/master/gifs/20151016_step.gif7?raw=true" width="300">
 
 - Add WAGNER post processing (Vignette & FXAA pass) :
 

@@ -6,7 +6,7 @@ class Sound extends Emitter {
 	constructor() {
 		super();
 
-		this._context = new AudioContext();
+		this._context = new AudioContext() || new webkitAudioContext();
 
 		this._bufferSize = 512; // change this value for more or less data
 

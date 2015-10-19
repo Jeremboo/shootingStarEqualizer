@@ -53,7 +53,6 @@ class Webgl {
 
 	initPostprocessing() {
 		if (!this.usePostprocessing) return;
-		console.log("salut")
 		this.vignettePass = new WAGNER.VignettePass();
 		this.fxaaPass = new WAGNER.FXAAPass();
 	}
