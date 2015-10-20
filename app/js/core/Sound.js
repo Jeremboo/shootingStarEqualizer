@@ -6,7 +6,13 @@ class Sound extends Emitter {
 	constructor() {
 		super();
 
-		this._context = new AudioContext() || new webkitAudioContext();
+		let AudioContext = window.AudioContext || window.webkitAudioContext || false; 
+		if (AudioContext) {
+		    this._context = new AudioContext;
+		} else {
+		    alert("Sorry, but the Web Audio API is not supported by your browser." +
+		    	" Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox");
+		}
 
 		this._bufferSize = 512; // change this value for more or less data
 
