@@ -7,6 +7,7 @@ class Webgl {
 
 		this.mouseControl = false;
 		this.mouseDown = false;
+		this.mouseOldPoseX = this.width/2;
 		this.cameraRotation = 0.4;
 		this.cameraZ = 480;
 
@@ -89,7 +90,8 @@ class Webgl {
 	_onMouseMove(e) {
 		if(this.mouseDown && this.mouseControl){
 			document.body.style.cursor = 'pointer';
-			this.cameraRotation += e.movementX*0.007;
+			this.cameraRotation += (e.clientX - this.mouseOldPoseX)*0.007;
+			this.mouseOldPoseX = e.clientX;
 			this.changeCameraRotation();
 		}
 	}
