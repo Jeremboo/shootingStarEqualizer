@@ -8,7 +8,8 @@
     "url": "https://github.com/Jeremboo/shootingStarEqualizer/"
   },
   "scripts": {
-    "start": "brunch watch --server"
+    "start": "brunch watch --server",
+    "deploy" :"brunch build --production"
   },
   "dependencies": {
     "auto-reload-brunch": ">= 1.0 < 1.9",
