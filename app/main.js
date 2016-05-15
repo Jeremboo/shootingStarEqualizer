@@ -105,14 +105,14 @@ function startMusic() {
   // -- hide Header
   hideHeader();
   // - start update
-  let i, j, r, pos, s, somme;
   webgl.mouseControl = true;
-  for (i = rays.length - 1; i >= 0; i--) {
-    r = rays[i];
-    pos = i * 10;
+  for (let i = rays.length - 1; i >= 0; i--) {
+
+    const r = rays[i];
+    const pos = i * 10;
     loop.add(() => {
-      s = sound.getData();
-      somme = 0;
+      let j, somme = 0;
+      const s = sound.getData();
       for (j = 0 ; j < 10 ; j++) {
         somme += s.freq[pos + j];
       };
